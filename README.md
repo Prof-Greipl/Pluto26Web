@@ -23,6 +23,16 @@ Nur Intro.
 - Aufbau von index.html,
 - Einfache Elements (siehe index.html im entsprechenden commit)
 
+### 21.10.2025
+- Links und Bilder (siehe index.html im entsprechenden commit)
+- Attribute (href, src, width,  ...)
+- style-Attribute (inline styles)
+- Externe CSS-Datei einbinden (link-Tag)
+- CSS-Selektoren (Element, ID, Class)
+
+
+
+
 
 
 ## Teil B (Pluto26Web)
