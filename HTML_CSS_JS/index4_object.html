@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Javascript Intro</title>
+  </head>
+  <body>
+    <script>
+    // JS-Object
+    person = {
+        name : "Greipl",
+        vorname: "Dieter",
+        greet: function () {
+                    console.log("Function greet :", this.name, " ", this.vorname)
+               }
+    }      
+    console.log( person )
+    console.log( person.name )
+    console.log( person.vorname )
+    person.greet()
+
+    
+    </script>
+  </body>
+</html>

@@ -34,5 +34,11 @@ Nur Intro.
 - Start mit JS
 - alles aus index2_js_basics.html, index3_js.html
 
+### 04.11.2025
+JS: document, events, elements
+- index3_js.html
+- index4_object.html
+
 ## Teil B (Pluto26Web)
+- Pluto26Web begonnen (nur Navbar)
 

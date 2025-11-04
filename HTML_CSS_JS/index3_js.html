@@ -3,13 +3,34 @@
     <title>Javascript Intro</title>
   </head>
   <body>
+    <div id="myText" style="display:none">Text</div>
     <button id="buSend">Senden</button>
+    <ul id="mylist">
 
+    </ul>
     <script>
+        console.dir(document.getElementById("myText"))
+
         const buttonSend = document.getElementById("buSend")
         buttonSend.addEventListener( "click", () => {
-             console.log("You pressed button send")  
+             console.log("You pressed button send")
+             document.getElementById("myText").style.display = "block"
+             document.getElementById("myText").style.color="white"
+             document.getElementById("myText").style.backgroundColor="red"
+             buttonSend.style.display="none"  
         })
+        
+        buttonSend.addEventListener( "mouseenter", () => {
+             console.log("Reingefahren...")  
+        })
+        
+        buttonSend.addEventListener( "mouseleave", () => {
+             console.log("Rausgefahren...")  
+             li_element = document.createElement("li")
+             li_element.innerHTML = "Rausgefahren..."
+             document.getElementById("mylist").appendChild(li_element)
+        })
+
         
     </script>
   </body>
