@@ -34,7 +34,5 @@ Nur Intro.
 - Start mit JS
 - alles aus index2_js_basics.html, index3_js_basics.html
 
-
-
 ## Teil B (Pluto26Web)
 
