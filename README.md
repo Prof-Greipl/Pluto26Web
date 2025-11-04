@@ -30,8 +30,9 @@ Nur Intro.
 - Externe CSS-Datei einbinden (link-Tag)
 - CSS-Selektoren (Element, ID, Class)
 
-
-
+### 28.10.2025
+- Start mit JS
+- alles aus index2_js_basics.html, index3_js_basics.html
 
 
 

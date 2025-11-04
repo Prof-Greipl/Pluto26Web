@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Javascript Intro</title>
+  </head>
+  <body>
+    <script>
+        function f ( x ){
+            return 2*x
+        }
+
+        // Ausgaben
+        console.log("Hallo Mobile Tech")
+
+        // Variablen
+        const a = 1
+        console.log("Wert von a : ", a)
+       
+        // Let ist block scoped
+        {
+          let i = 5.1           // float variable
+          let s = "Hans Huber"  // String Variable
+          console.log("Wert von i : ", i, " Name :", s)
+        }
+        
+        // Logische Werte true, false
+        console.log( 4 == 4)
+
+        if ( true) {
+            console.log("Im then-Zweig")
+        }
+        else {
+            console.log("Im else-Zweig")
+        }
+
+        // Überkorrekte for-loop
+        for (let i=0; i<10; i++ ){
+            console.log(i)
+        }
+
+        // while 
+        let i = -10
+        while( i < 0){
+             console.log(i)
+             i++
+        }
+
+        // Arrays (Listen)
+        list = [1,2,"Huber"]
+        list.forEach(element => {
+            console.log("\n\tListeneintrag : ", element)
+        });
+
+        console.log( f(7) )
+
+
+    </script>
+  </body>
+</html>
