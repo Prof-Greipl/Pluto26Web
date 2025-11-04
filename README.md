@@ -32,7 +32,7 @@ Nur Intro.
 
 ### 28.10.2025
 - Start mit JS
-- alles aus index2_js_basics.html, index3_js_basics.html
+- alles aus index2_js_basics.html, index3_js.html
 
 ## Teil B (Pluto26Web)
 
