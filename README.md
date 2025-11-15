@@ -16,8 +16,6 @@ Die Inhalte der einzelnen Vorlesungen werden nachfolgend zusammengefasst.
 ### 07.10.2025
 Nur Intro. 
 
-
-
 ### 14.10.2025
 
 - Aufbau von index.html,
@@ -39,6 +37,24 @@ JS: document, events, elements
 - index3_js.html
 - index4_object.html
 
+
+
 ## Teil B (Pluto26Web)
 - Pluto26Web begonnen (nur Navbar)
+
+### 04.11.2025 (Commit T4)
+- Erzeugung der Datei 
+
+### 11.11.2025 (Commit T5)
+- Navigation, hierzu u.a.:
+`window.addEventListener('load', () => {})`
+`location.hash`
+`document.querySelectorAll()` 
+`document.querySelector()`
+`element.classList.remove()`
+`element.classList.add()`
+`location.hash`
+
+
+
 

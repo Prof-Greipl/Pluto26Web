@@ -10,6 +10,10 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <style>
+      .screen { display:none;}
+      .active { display:block;} 
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -29,36 +33,70 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#main">Main</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link active" aria-current="page" href="#manageAccount">ManageAccount</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link active" aria-current="page" href="#signIn">SignIn</a>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown link
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#createAccount">CreateAccount</a>
             </li>
-          </ul>
+          </ul> <!-- Ende Navbar -->
         </div>
       </div>
-    </nav>
+    </nav> <!-- Ende der Navigation -->
+
+    <!-- Hier starten die Screen-Bereich  e -->
+
+    <div id="main" class="screen"  style="background-color: aquamarine;">
+      <h1>Main</h1>
+    </div>
+
+    <div id="manageAccount" class="screen"  style="background-color: aqua">
+      <h1>Manage Account</h1>
+    </div>
+
+    <div id="signIn" class="screen"  style="background-color:azure">
+      <h1>Sign In</h1>
+    </div>
+
+    <div id="createAccount" class="screen"  style="background-color:chocolate">
+      <h1>Create Account</h1>
+    </div>
+
+    <script>
+
+      function showScreen( hash ){
+        console.log("Hash changed : ", hash) 
+        elements = document.querySelectorAll('.screen')
+
+        console.log("Liste der Elemente:") 
+        elements.forEach(element => {
+          console.log(element.classList)
+          element.classList.remove('active')
+        });
+        // Ziel-Bildschirm sichtbar machen
+        activeScreen = document.querySelector(hash )
+        activeScreen.classList.add('active')
+
+      }
+
+      window.addEventListener('hashchange',
+        () => { 
+          showScreen( location.hash )
+        }
+      )
+
+      // Zuerst wird die main-Seite angezeigt!
+      window.addEventListener('load', () => {
+        console.log("Laden beendet.")
+        showScreen('#main')
+      })
+
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
