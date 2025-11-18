@@ -55,6 +55,17 @@ JS: document, events, elements
 `element.classList.add()`
 `location.hash`
 
+### 18.11.2025 (Commit T5)
+HTML:
+- SignInActivity
+- Modal
+- Button, Input-Felder
+
+JS:
+`document.getElementById("si_email").value`
+
+
+
 
 
 
