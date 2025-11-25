@@ -70,12 +70,27 @@
     <!-- Ende der Navigation -->
 
     <!-- Hier starten die Screen-Bereiche -->
-    <div id="main" class="screen" style="background-color: aquamarine">
+    <div id="main" class="screen container">
       <h1>Main</h1>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id = "maText" placeholder="Enter your text...">
+        <button type="button" class="btn btn-primary" id="maSend">Send</button>
+      </div>
+      <ul class="list-group" id="maPostList">
+      </ul>
     </div>
 
-    <div id="manageAccount" class="screen" style="background-color: aqua">
+    <div id="manageAccount" class="screen container">
       <h1>Manage Account</h1>
+      <h6 class="mt-4">Technical User-Id</h6>
+      <div id="ma_line1">you should never see this</div>
+      <h6 class="mt-4">Account verified</h6>
+      <div id="ma_line2">you should never see this</div>
+      <button type="button" class="btn btn-primary mt-3" id="ma_button_signout">Sign out</button>
+      <button type="button" class="btn btn-primary mt-3" id="ma_button_send_verification_mail">Send
+        Verification Mail</button>
+      <button type="button" class="btn btn-primary mt-3" id="ma_button_delete_account" >Delete
+        Account</button>
     </div>
 
     <div id="signIn" class="screen container">
@@ -114,8 +129,17 @@
       </button>
     </div>
 
-    <div id="createAccount" class="screen" style="background-color: chocolate">
+    <div id="createAccount" class="screen container">
       <h1>Create Account</h1>
+       <input type="email" class="form-control mt-3" id="ca_email" placeholder="Enter email">
+       <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+      <input type="password" class="form-control mt-3" id="ca_password1" placeholder="Password">
+      <input type="password" class="form-control mt-1" id="ca_password2" placeholder="Repeat Password">
+
+      <button type="button" class="btn btn-primary mt-3" id="si_button_signIn">
+        Create Account
+      </button>
     </div>
 
     <div class="modal" tabindex="-1" id="myModal">
@@ -134,16 +158,40 @@
             <p>Modal body text goes here.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
 
+    <template id="maTemplate">
+      <li class="list-group-item">
+        <div id="post_view_line1" style="font-weight:bold">Zeile1</div>  <!-- Erste Zeile -->
+        <div id="post_view_line2">Zeile2</div>  <!-- Zweite Zeile -->
+      </li>
+    </template>
     <!-- J A V A - S C R I P T  C O D E ------------------------------- -->
     <script>
-      // JS für Screen SignIn
+      // JS für Main
+      c = 0
+      document
+        .getElementById("maSend")
+        .addEventListener("click", () =>{
+          var template = document.getElementById("maTemplate")
+          var li = template.content.cloneNode(true) // Kopiere Inhalt des Templates
+          li.getElementById("post_view_line1").textContent = "Autor " + c
+          c = c+1  
+          
+          //li.getElementById("post_view_line2").textContent = new Date()
+          
+          // Alternative zweite Zeile
+          post = document.getElementById("maText").value
+          li.getElementById("post_view_line2").textContent = post
+          
+          document.getElementById("maPostList").appendChild(li) 
+        })
 
+      // JS für Screen SignIn
       // Sign In Button
       document
         .getElementById("si_button_signIn")
@@ -161,16 +209,11 @@
         .getElementById("si_button_resetPassword")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
-          console.log("Your pressed ResetPassword, email = ", email);
         });
 
       function showScreen(hash) {
-        console.log("Hash changed : ", hash);
         elements = document.querySelectorAll(".screen");
-
-        console.log("Liste der Elemente:");
         elements.forEach((element) => {
-          console.log(element.classList);
           element.classList.remove("active");
         });
         // Ziel-Bildschirm sichtbar machen
@@ -183,14 +226,15 @@
       });
 
       // Zuerst wird die main-Seite angezeigt!
-      window.addEventListener("load", () => {
-        console.log("Laden beendet.");
-        showScreen("#signIn");
+      window.addEventListener("load", () => {       
+        showScreen("#main");
       });
 
       // Modal anzeigen
       function displayModal(title, body){
-        let options = {}
+        let options = {
+          keyboard: false
+        }
         document.getElementById("modal_title").textContent=title
         document.getElementById("modal_body").textContent=body
          

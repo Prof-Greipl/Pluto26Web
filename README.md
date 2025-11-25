@@ -8,9 +8,6 @@ Pluto26-Web ist ein Projekt für Studierende der HAW-Landshut im Wintersemester 
 
 Die Inhalte der einzelnen Vorlesungen werden nachfolgend zusammengefasst.
 
-
-
-
 ## Teil A (Einführung in HTML, CSS, Javascript)
 
 ### 07.10.2025
@@ -37,8 +34,6 @@ JS: document, events, elements
 - index3_js.html
 - index4_object.html
 
-
-
 ## Teil B (Pluto26Web)
 - Pluto26Web begonnen (nur Navbar)
 
@@ -63,6 +58,15 @@ HTML:
 
 JS:
 `document.getElementById("si_email").value`
+
+### 25.11.2025 (commit T7)
+- Update des Main-Screen 
+    - Template
+    - .value
+    - template.contenr.cloneNode
+
+Übung: Leere Nachrichten blockieren.
+
 
 
 
