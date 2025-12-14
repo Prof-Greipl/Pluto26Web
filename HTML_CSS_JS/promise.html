@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Test Promise</title>
+  </head>
+  <body>
+    <script>
+        console.log("Start")
+        new Promise( (resolve, reject) =>{
+          setTimeout( () => {
+            // Assume long running code here
+            //...
+            // We finish successfully
+            // resolve("Ok")
+            resolve("Failed!")
+          } , 5000)
+        })
+        .then( (p) => {
+          // Hier steht der Code im Erfolgsfall - also Promised "resolved"
+          console.log(p)
+        })
+        .catch( ( p ) => {
+            // Hier steht der Code im Fehlerfalll - also Promised "rejected"
+            console.log("Result: "+ p)
+        })
+
+        console.log("Ende")
+    </script>
+  </body>
+</html>

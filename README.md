@@ -67,6 +67,15 @@ JS:
 
 Übung: Leere Nachrichten blockieren.
 
+### 02.12.2025 (commit T8)
+- kein Stoff, Info zur Probeklausur
+
+### 09.12.2025 (commit T9)
+- Connect zur Firebase-App
+- Import des JS Libraries
+- CreateAccount (testweise)
+
+
 
 
 
