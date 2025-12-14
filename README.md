@@ -71,8 +71,9 @@ JS:
 - kein Stoff, Info zur Probeklausur
 
 ### 09.12.2025 (commit T9)
+- Promise 
 - Connect zur Firebase-App
-- Import des JS Libraries
+- Import der JS Libraries
 - CreateAccount (testweise)
 
 
