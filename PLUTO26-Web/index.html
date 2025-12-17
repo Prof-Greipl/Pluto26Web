@@ -22,7 +22,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Pluto26Web</a>
+        <a class="navbar-brand" href="#">Pluto26Web-IT2</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -170,7 +170,11 @@
         placeholder="Repeat Password"
       />
 
-      <button type="button" class="btn btn-primary mt-3" id="si_button_signIn">
+      <button
+        type="button"
+        class="btn btn-primary mt-3"
+        id="ca_button_create_account"
+      >
         Create Account
       </button>
     </div>
@@ -214,11 +218,19 @@
     <!-- J A V A - S C R I P T  C O D E ------------------------------- -->
     <script type="module">
       // Import the functions you need from the SDKs you need
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js'
-      import { 
-        getAuth, 
-        createUserWithEmailAndPassword     
-       } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js'
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+      import {
+        getFirestore,
+        addDoc,
+        collection
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -235,24 +247,48 @@
         measurementId: "G-RPWH83SN9J",
       };
 
-      // Initialize Firebase
+      // Initialize Firebase, Auth-Module, Firestore-Module
       const app = initializeApp(firebaseConfig);
-      const mAuth = getAuth( app )
-      createUserWithEmailAndPassword(mAuth, "fhgreipl@haw-landshut.de","123456")
-      .then( (userCredential) =>{
-        console.log("Benutzer erzeugt")
-      }).catch( (error) => {
-        console.log("My Fehler : ", error.message )
-      })
-
+      const mAuth = getAuth(app);
+      const mDb = getFirestore(app);
 
       // Wir legen testweise einen User an.
 
       // JS für Main
       let c = 0;
+
+      // Create-Account-Button
+      document
+        .getElementById("ca_button_create_account")
+        .addEventListener("click", () => {
+          let mail = document.getElementById("ca_email").value;
+          let password = document.getElementById("ca_password1").value;
+          // Validations..
+          //
+          createUserWithEmailAndPassword(mAuth, mail, password)
+            .then((userCredential) => {
+              console.log("Benutzer erzeugt");
+              displayModal("Create User", "Benutzer erfolgreich anlegt");
+            })
+            .catch((error) => {
+              displayModal("Create User", "Feher: " + error.message);
+            });
+        });
+
+      // Send Button
       document.getElementById("maSend").addEventListener("click", () => {
-        var template = document.getElementById("maTemplate");
-        var li = template.content.cloneNode(true); // Kopiere Inhalt des Templates
+        // Write to firestore
+        addDoc( collection(mDb, "posts") , 
+        {
+          datum: new Date(),
+          email: "fhgreipl@gmail.com",
+          title: "Titel des Posts"
+        })
+        .then( (docRef) => { console.log("Written to ", docRef.id)})
+        .catch( (error) => { console.log("Error ", error.message)})
+        
+        let template = document.getElementById("maTemplate");
+        let li = template.content.cloneNode(true); // Kopiere Inhalt des Templates
         li.getElementById("post_view_line1").textContent = "Autor " + c;
         c = c + 1;
 
@@ -265,17 +301,24 @@
         document.getElementById("maPostList").appendChild(li);
       });
 
-      // JS für Screen SignIn
       // Sign In Button
       document
         .getElementById("si_button_signIn")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
           let password = document.getElementById("si_password").value;
-          console.log(
-            "Your pressed SignIn Email = " + email + " PW = " + password
-          );
-          displayModal("meinTitel", "meinBody");
+
+          signInWithEmailAndPassword(mAuth, email, password)
+            .then((userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+              displayModal("Sign In", "You are signed in :" + user.email);
+              // ...
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
         });
 
       // Reset Password Button
@@ -283,6 +326,19 @@
         .getElementById("si_button_resetPassword")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
+        });
+
+      // Sign-Out Button
+      document
+        .getElementById("ma_button_signout")
+        .addEventListener("click", () => {
+          signOut(mAuth)
+            .then(() => {
+              displayModal("Sign Out", "You are signed out");
+            })
+            .catch((error) => {
+              displayModal("Sign Out", "Error :" + error.message);
+            });
         });
 
       function showScreen(hash) {
@@ -301,7 +357,7 @@
 
       // Zuerst wird die main-Seite angezeigt!
       window.addEventListener("load", () => {
-        showScreen("#main");
+        window.location.hash = "#main";
       });
 
       // Modal anzeigen
@@ -319,6 +375,9 @@
       // TEST-SETTINGS - DELETE LATER
       document.getElementById("si_email").value = "fhgreipl@gmail.com";
       document.getElementById("si_password").value = "123456";
+      document.getElementById("ca_email").value = "fhgreipl@gmail.com";
+      document.getElementById("ca_password1").value = "123456";
+      document.getElementById("ca_password2").value = "123456";
     </script>
 
     <script

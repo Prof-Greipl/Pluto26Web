@@ -76,6 +76,10 @@ JS:
 - Import der JS Libraries
 - CreateAccount (testweise)
 
+### 16.12.2025 (commit T10)
+- Implemented SignIn, CreateAccount, SignOut
+- Connected to FireStore Database
+
 
 
 
