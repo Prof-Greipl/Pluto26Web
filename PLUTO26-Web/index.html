@@ -22,7 +22,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Pluto26Web-IT2</a>
+        <a class="navbar-brand" href="#">Pluto26Web</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -223,7 +223,9 @@
         getAuth,
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
-        signOut
+        signOut,
+        sendEmailVerification,
+        sendPasswordResetEmail
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
       import {
@@ -258,8 +260,7 @@
       let c = 0;
 
       // Create-Account-Button
-      document
-        .getElementById("ca_button_create_account")
+      document.getElementById("ca_button_create_account")
         .addEventListener("click", () => {
           let mail = document.getElementById("ca_email").value;
           let password = document.getElementById("ca_password1").value;
@@ -276,7 +277,8 @@
         });
 
       // Send Button
-      document.getElementById("maSend").addEventListener("click", () => {
+      document.getElementById("maSend")
+        .addEventListener("click", () => {
         // Write to firestore
         addDoc( collection(mDb, "posts") , 
         {
@@ -302,35 +304,68 @@
       });
 
       // Sign In Button
-      document
-        .getElementById("si_button_signIn")
+      // Note: Improved error handling at Dec-21
+      document.getElementById("si_button_signIn")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
           let password = document.getElementById("si_password").value;
-
+          // OP: Add Validations
           signInWithEmailAndPassword(mAuth, email, password)
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              displayModal("Sign In", "You are signed in :" + user.email);
+              displayModal("Sign In", "You are signed in as " + user.email);
               // ...
             })
             .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
+              displayModal("Sign In", "Sign in failed (" + error.message +")");
+              console.log("Error in SignIn : " + error.message)
             });
         });
 
       // Reset Password Button
-      document
-        .getElementById("si_button_resetPassword")
+      // Added as homework at Dec-21
+      document.getElementById("si_button_resetPassword")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
+          // Validate..
+          if (email === ""){
+            displayModal("Reset password", "Please enter valid email in the email field");
+            return
+          }
+          sendPasswordResetEmail(mAuth, email, null)
+            .then(() => {
+              displayModal("Reset password", "Pls check your mailbox.");
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              displayModal("Reset password", "Error : " + errorMessage);
+            });
         });
 
-      // Sign-Out Button
-      document
-        .getElementById("ma_button_signout")
+      // CREATE-ACCOUNT
+      document.getElementById("ca_button_create_account")
+        .addEventListener("click", () => {
+          let mail = document.getElementById("ca_email").value;
+          let password = document.getElementById("ca_password1").value;
+          // Validations..
+          //
+          createUserWithEmailAndPassword(mAuth, mail, password)
+            .then((userCredential) => {
+              console.log("Benutzer erzeugt");
+              displayModal("Create User", "Benutzer erfolgreich anlegt");
+            })
+            .catch((error) => {
+              displayModal("Create User", "Feher: " + error.message);
+            });
+        });
+
+
+      // MANAGE-ACCOUNT - Sign-Out Button
+      document.getElementById("ma_button_signout")
         .addEventListener("click", () => {
           signOut(mAuth)
             .then(() => {
@@ -340,6 +375,30 @@
               displayModal("Sign Out", "Error :" + error.message);
             });
         });
+
+      // Added as homework at Dec-21
+      document.getElementById("ma_button_send_verification_mail")
+        .addEventListener("click", () => {
+          let user = mAuth.currentUser
+          if (user == null){
+            displayModal(Error, "No user is logged in. You should not be able to enter Manage Accout.")
+            return
+          }
+          if (user.emailVerified){
+            displayModal("Info", "Your E-Mail is already verified.")
+            return
+          }
+          
+          sendEmailVerification(  user, null )
+           .then((userCredential) => {
+              console.log("Benutzer erzeugt");
+              displayModal("E-Mail Verification", "E-Mail was sent.");
+            })
+            .catch((error) => {
+              displayModal("E-Mail Verification", "Fehler: " + error.message);
+            });
+        });
+
 
       function showScreen(hash) {
         let elements = document.querySelectorAll(".screen");
