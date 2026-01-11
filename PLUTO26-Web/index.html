@@ -20,193 +20,201 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Pluto26Web</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#main"
-                >Main</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="#manageAccount"
-                >ManageAccount</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#signIn"
-                >SignIn</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="#createAccount"
-                >CreateAccount</a
-              >
-            </li>
-          </ul>
-          <!-- Ende Navbar -->
+    <div id="loading">Loading</div>
+    <div id="webapp" style="display:none">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Pluto26Web</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#manageAccount"
+                  id="nav_manage_account"
+                  >ManageAccount</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" 
+                  aria-current="page" 
+                  href="#signIn"
+                  id = "nav_signIn"
+                  >SignIn</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#createAccount"
+                  id = "nav_create_account"
+                  >CreateAccount</a
+                >
+              </li>
+            </ul>
+            <!-- Ende Navbar -->
+          </div>
         </div>
-      </div>
-    </nav>
-    <!-- Ende der Navigation -->
+      </nav>
+      <!-- Ende der Navigation -->
 
-    <!-- Hier starten die Screen-Bereiche -->
-    <div id="main" class="screen container">
-      <h1>Main</h1>
-      <div class="input-group mb-3">
+      <!-- Hier starten die Screen-Bereiche -->
+      <div id="main" class="screen container">
+        <h1>Main</h1>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="maText"
+            placeholder="Enter your text..."
+          />
+          <button type="button" class="btn btn-primary" id="maSend">
+            Send
+          </button>
+        </div>
+        <ul class="list-group" id="maPostList"></ul>
+      </div>
+
+      <div id="manageAccount" class="screen container">
+        <h1>Manage Account</h1>
+        <h6 class="mt-4">Technical User-Id</h6>
+        <div id="ma_line1">you should never see this</div>
+        <h6 class="mt-4">Account verified</h6>
+        <div id="ma_line2">you should never see this</div>
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          id="ma_button_signout"
+        >
+          Sign out
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          id="ma_button_send_verification_mail"
+        >
+          Send Verification Mail
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          id="ma_button_delete_account"
+        >
+          Delete Account
+        </button>
+      </div>
+
+      <div id="signIn" class="screen container">
+        <h1>Sign In</h1>
+
+        <div class="input-group mb-3">
+          <!-- E-Mail -->
+          <span class="input-group-text" id="basic-addon1">E-Mail</span>
+          <input
+            type="text"
+            class="form-control"
+            id="si_email"
+            placeholder="Username"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <!-- Password  -->
+          <span class="input-group-text" id="basic-addon1">Password</span>
+          <input
+            type="text"
+            class="form-control"
+            id="si_password"
+            placeholder="Password"
+          />
+        </div>
+        <button type="button" class="btn btn-primary" id="si_button_signIn">
+          Sign In
+        </button>
+        <br />
+        <button
+          type="button"
+          class="btn btn-secondary mt-2 btn-sm"
+          id="si_button_resetPassword"
+        >
+          Reset Password
+        </button>
+      </div>
+
+      <div id="createAccount" class="screen container">
+        <h1>Create Account</h1>
         <input
-          type="text"
-          class="form-control"
-          id="maText"
-          placeholder="Enter your text..."
+          type="email"
+          class="form-control mt-3"
+          id="ca_email"
+          placeholder="Enter email"
         />
-        <button type="button" class="btn btn-primary" id="maSend">Send</button>
-      </div>
-      <ul class="list-group" id="maPostList"></ul>
-    </div>
+        <small class="form-text text-muted"
+          >We'll never share your email with anyone else.</small
+        >
 
-    <div id="manageAccount" class="screen container">
-      <h1>Manage Account</h1>
-      <h6 class="mt-4">Technical User-Id</h6>
-      <div id="ma_line1">you should never see this</div>
-      <h6 class="mt-4">Account verified</h6>
-      <div id="ma_line2">you should never see this</div>
-      <button type="button" class="btn btn-primary mt-3" id="ma_button_signout">
-        Sign out
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary mt-3"
-        id="ma_button_send_verification_mail"
-      >
-        Send Verification Mail
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary mt-3"
-        id="ma_button_delete_account"
-      >
-        Delete Account
-      </button>
-    </div>
-
-    <div id="signIn" class="screen container">
-      <h1>Sign In</h1>
-
-      <div class="input-group mb-3">
-        <!-- E-Mail -->
-        <span class="input-group-text" id="basic-addon1">E-Mail</span>
         <input
-          type="text"
-          class="form-control"
-          id="si_email"
-          placeholder="Username"
-        />
-      </div>
-      <div class="input-group mb-3">
-        <!-- Password  -->
-        <span class="input-group-text" id="basic-addon1">Password</span>
-        <input
-          type="text"
-          class="form-control"
-          id="si_password"
+          type="password"
+          class="form-control mt-3"
+          id="ca_password1"
           placeholder="Password"
         />
+        <input
+          type="password"
+          class="form-control mt-1"
+          id="ca_password2"
+          placeholder="Repeat Password"
+        />
+
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          id="ca_button_create_account"
+        >
+          Create Account
+        </button>
       </div>
-      <button type="button" class="btn btn-primary" id="si_button_signIn">
-        Sign In
-      </button>
-      <br />
-      <button
-        type="button"
-        class="btn btn-secondary mt-2 btn-sm"
-        id="si_button_resetPassword"
-      >
-        Reset Password
-      </button>
-    </div>
 
-    <div id="createAccount" class="screen container">
-      <h1>Create Account</h1>
-      <input
-        type="email"
-        class="form-control mt-3"
-        id="ca_email"
-        placeholder="Enter email"
-      />
-      <small class="form-text text-muted"
-        >We'll never share your email with anyone else.</small
-      >
-
-      <input
-        type="password"
-        class="form-control mt-3"
-        id="ca_password1"
-        placeholder="Password"
-      />
-      <input
-        type="password"
-        class="form-control mt-1"
-        id="ca_password2"
-        placeholder="Repeat Password"
-      />
-
-      <button
-        type="button"
-        class="btn btn-primary mt-3"
-        id="ca_button_create_account"
-      >
-        Create Account
-      </button>
-    </div>
-
-    <div class="modal" tabindex="-1" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modal_title">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body" id="modal_body">
-            <p>Modal body text goes here.</p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
+      <div class="modal" tabindex="-1" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal_title">Modal title</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="modal_body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <template id="maTemplate">
       <li class="list-group-item">
         <div id="post_view_line1" style="font-weight: bold">Zeile1</div>
@@ -225,13 +233,15 @@
         signInWithEmailAndPassword,
         signOut,
         sendEmailVerification,
-        sendPasswordResetEmail
+        sendPasswordResetEmail,
+        onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
       import {
         getFirestore,
         addDoc,
-        collection
+        collection,
+        serverTimestamp
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
       // TODO: Add SDKs for Firebase products that you want to use
@@ -254,13 +264,33 @@
       const mAuth = getAuth(app);
       const mDb = getFirestore(app);
 
-      // Wir legen testweise einen User an.
+      onAuthStateChanged(mAuth, (user) => {
+        document.getElementById("loading").style.display = "none"
+        document.getElementById("webapp").style.display = "block"
+        if (user != null) {
+          console.log("OnAuthStateChanged : ", user.email);
+          document.getElementById("nav_signIn").style.display = "none"
+          document.getElementById("nav_create_account").style.display = "none"
+          document.getElementById("nav_manage_account").innerHTML = user.email
+          document.getElementById("nav_manage_account").style.display = "block"
+          location.hash="#main"
 
+        } else {
+          console.log("OnAuthStateChanged : no user.");
+          document.getElementById("nav_signIn").style.display = "block"
+          document.getElementById("nav_create_account").style.display = "block"
+          document.getElementById("nav_manage_account").style.display = "none"
+          location.hash="#signIn"
+        }
+      });
+
+      location.hash="#"
       // JS für Main
       let c = 0;
 
       // Create-Account-Button
-      document.getElementById("ca_button_create_account")
+      document
+        .getElementById("ca_button_create_account")
         .addEventListener("click", () => {
           let mail = document.getElementById("ca_email").value;
           let password = document.getElementById("ca_password1").value;
@@ -277,18 +307,38 @@
         });
 
       // Send Button
-      document.getElementById("maSend")
-        .addEventListener("click", () => {
+      document.getElementById("maSend").addEventListener("click", () => {
+        let user = mAuth.currentUser;
+        if (user== null) {
+          return;
+        }
+        let my_text = document.getElementById("maText").value
+        if (my_text==""){
+            displayModal("Post Message", "Your message is empty.");
+            return;
+        }
         // Write to firestore
-        addDoc( collection(mDb, "posts") , 
-        {
-          datum: new Date(),
-          email: "fhgreipl@gmail.com",
-          title: "Titel des Posts"
+        addDoc(collection(mDb, "posts"), {
+          uid: user.uid,
+          email: user.email,
+          title:"WEBAPP",
+          body: my_text,
+          createdAt: serverTimestamp()
         })
-        .then( (docRef) => { console.log("Written to ", docRef.id)})
-        .catch( (error) => { console.log("Error ", error.message)})
+          .then((docRef) => {
+            console.log("Written to ", docRef.id);
+          })
+          .catch((error) => {
+            console.log("Error ", error.message);
+          });
+
         
+        document.getElementById("maText")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter"){
+              document.getElementById("maSend").click()
+            }
+          })  
         let template = document.getElementById("maTemplate");
         let li = template.content.cloneNode(true); // Kopiere Inhalt des Templates
         li.getElementById("post_view_line1").textContent = "Autor " + c;
@@ -305,7 +355,8 @@
 
       // Sign In Button
       // Note: Improved error handling at Dec-21
-      document.getElementById("si_button_signIn")
+      document
+        .getElementById("si_button_signIn")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
           let password = document.getElementById("si_password").value;
@@ -320,20 +371,24 @@
             .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
-              displayModal("Sign In", "Sign in failed (" + error.message +")");
-              console.log("Error in SignIn : " + error.message)
+              displayModal("Sign In", "Sign in failed (" + error.message + ")");
+              console.log("Error in SignIn : " + error.message);
             });
         });
 
       // Reset Password Button
       // Added as homework at Dec-21
-      document.getElementById("si_button_resetPassword")
+      document
+        .getElementById("si_button_resetPassword")
         .addEventListener("click", () => {
           let email = document.getElementById("si_email").value;
           // Validate..
-          if (email === ""){
-            displayModal("Reset password", "Please enter valid email in the email field");
-            return
+          if (email === "") {
+            displayModal(
+              "Reset password",
+              "Please enter valid email in the email field"
+            );
+            return;
           }
           sendPasswordResetEmail(mAuth, email, null)
             .then(() => {
@@ -347,7 +402,8 @@
         });
 
       // CREATE-ACCOUNT
-      document.getElementById("ca_button_create_account")
+      document
+        .getElementById("ca_button_create_account")
         .addEventListener("click", () => {
           let mail = document.getElementById("ca_email").value;
           let password = document.getElementById("ca_password1").value;
@@ -363,9 +419,9 @@
             });
         });
 
-
       // MANAGE-ACCOUNT - Sign-Out Button
-      document.getElementById("ma_button_signout")
+      document
+        .getElementById("ma_button_signout")
         .addEventListener("click", () => {
           signOut(mAuth)
             .then(() => {
@@ -377,20 +433,24 @@
         });
 
       // Added as homework at Dec-21
-      document.getElementById("ma_button_send_verification_mail")
+      document
+        .getElementById("ma_button_send_verification_mail")
         .addEventListener("click", () => {
-          let user = mAuth.currentUser
-          if (user == null){
-            displayModal(Error, "No user is logged in. You should not be able to enter Manage Accout.")
-            return
+          let user = mAuth.currentUser;
+          if (user == null) {
+            displayModal(
+              Error,
+              "No user is logged in. You should not be able to enter Manage Accout."
+            );
+            return;
           }
-          if (user.emailVerified){
-            displayModal("Info", "Your E-Mail is already verified.")
-            return
+          if (user.emailVerified) {
+            displayModal("Info", "Your E-Mail is already verified.");
+            return;
           }
-          
-          sendEmailVerification(  user, null )
-           .then((userCredential) => {
+
+          sendEmailVerification(user, null)
+            .then((userCredential) => {
               console.log("Benutzer erzeugt");
               displayModal("E-Mail Verification", "E-Mail was sent.");
             })
@@ -399,8 +459,10 @@
             });
         });
 
-
       function showScreen(hash) {
+        if (hash==""){
+          return;
+        }
         let elements = document.querySelectorAll(".screen");
         elements.forEach((element) => {
           element.classList.remove("active");
@@ -416,7 +478,7 @@
 
       // Zuerst wird die main-Seite angezeigt!
       window.addEventListener("load", () => {
-        window.location.hash = "#main";
+        //window.location.hash = "#main";
       });
 
       // Modal anzeigen
@@ -437,6 +499,7 @@
       document.getElementById("ca_email").value = "fhgreipl@gmail.com";
       document.getElementById("ca_password1").value = "123456";
       document.getElementById("ca_password2").value = "123456";
+      console.log("ENDE DES JS CODES");
     </script>
 
     <script

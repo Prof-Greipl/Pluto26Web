@@ -80,6 +80,12 @@ JS:
 - Implemented SignIn, CreateAccount, SignOut
 - Connected to FireStore Database
 
+### 23.12.2025 (commit T10)
+- Improved loading flow
+- Added onAuthStateChanged
+- Added send verification mail
+- Improved Messaging with modal
+
 
 
 
