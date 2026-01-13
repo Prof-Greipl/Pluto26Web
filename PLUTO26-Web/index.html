@@ -21,7 +21,7 @@
   </head>
   <body>
     <div id="loading">Loading</div>
-    <div id="webapp" style="display:none">
+    <div id="webapp" style="display: none">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Pluto26Web</a>
@@ -48,10 +48,11 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link active" 
-                  aria-current="page" 
+                <a
+                  class="nav-link active"
+                  aria-current="page"
                   href="#signIn"
-                  id = "nav_signIn"
+                  id="nav_signIn"
                   >SignIn</a
                 >
               </li>
@@ -60,7 +61,7 @@
                   class="nav-link active"
                   aria-current="page"
                   href="#createAccount"
-                  id = "nav_create_account"
+                  id="nav_create_account"
                   >CreateAccount</a
                 >
               </li>
@@ -239,9 +240,13 @@
 
       import {
         getFirestore,
-        addDoc,
+        addDoc,  // Needed for writing
         collection,
-        serverTimestamp
+        serverTimestamp,
+        query, // Needed for the listener...
+        limit,
+        orderBy,
+        onSnapshot
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
       // TODO: Add SDKs for Firebase products that you want to use
@@ -265,26 +270,62 @@
       const mDb = getFirestore(app);
 
       onAuthStateChanged(mAuth, (user) => {
-        document.getElementById("loading").style.display = "none"
-        document.getElementById("webapp").style.display = "block"
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("webapp").style.display = "block";
         if (user != null) {
           console.log("OnAuthStateChanged : ", user.email);
-          document.getElementById("nav_signIn").style.display = "none"
-          document.getElementById("nav_create_account").style.display = "none"
-          document.getElementById("nav_manage_account").innerHTML = user.email
-          document.getElementById("nav_manage_account").style.display = "block"
-          location.hash="#main"
+          document.getElementById("nav_signIn").style.display = "none";
+          document.getElementById("nav_create_account").style.display = "none";
+          document.getElementById("nav_manage_account").innerHTML = user.email;
+          document.getElementById("nav_manage_account").style.display = "block";
 
+          // Step 1: Define the query to firebase
+          const mQuery = query(
+            collection(mDb, "posts"),
+            limit(5),
+            orderBy("createdAt", "desc")
+          );
+          
+          const mListener = onSnapshot( mQuery, (querySnapshot) => {
+            console.log("Snapshot : ",  querySnapshot.size );
+
+            // Liste leeren
+            document.getElementById("maPostList").innerHTML=""
+            
+            querySnapshot.forEach( (doc) =>{
+                console.log("Doc ", doc.id, " , ", doc.get("body"))
+
+                // Listenelement erzeugen
+                let li = document.getElementById("maTemplate").content.cloneNode(true)
+                li.getElementById("post_view_line1").textContent = doc.get("email")
+
+                let mDate 
+                if (doc.get("createdAt") == null){
+                    console.log("Post-date was null. Used System date!")
+                    mDate = Date()
+                }
+                else {
+                  mDate = doc.get("createdAt").toDate()
+                }
+
+                li.getElementById("post_view_line2").textContent = doc.get("body") + " " + mDate
+                
+                // Listenelement an die Liste anhängen
+                document.getElementById("maPostList").appendChild( li )
+            })
+          })
+
+          location.hash = "#main";
         } else {
           console.log("OnAuthStateChanged : no user.");
-          document.getElementById("nav_signIn").style.display = "block"
-          document.getElementById("nav_create_account").style.display = "block"
-          document.getElementById("nav_manage_account").style.display = "none"
-          location.hash="#signIn"
+          document.getElementById("nav_signIn").style.display = "block";
+          document.getElementById("nav_create_account").style.display = "block";
+          document.getElementById("nav_manage_account").style.display = "none";
+          location.hash = "#signIn";
         }
       });
 
-      location.hash="#"
+      location.hash = "#";
       // JS für Main
       let c = 0;
 
@@ -309,21 +350,21 @@
       // Send Button
       document.getElementById("maSend").addEventListener("click", () => {
         let user = mAuth.currentUser;
-        if (user== null) {
+        if (user == null) {
           return;
         }
-        let my_text = document.getElementById("maText").value
-        if (my_text==""){
-            displayModal("Post Message", "Your message is empty.");
-            return;
+        let my_text = document.getElementById("maText").value;
+        if (my_text == "") {
+          displayModal("Post Message", "Your message is empty.");
+          return;
         }
         // Write to firestore
         addDoc(collection(mDb, "posts"), {
           uid: user.uid,
           email: user.email,
-          title:"WEBAPP",
+          title: "WEBAPP",
           body: my_text,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
         })
           .then((docRef) => {
             console.log("Written to ", docRef.id);
@@ -332,25 +373,11 @@
             console.log("Error ", error.message);
           });
 
-        
-        document.getElementById("maText")
-          .addEventListener("keydown", (e) => {
-            if (e.key === "Enter"){
-              document.getElementById("maSend").click()
-            }
-          })  
-        let template = document.getElementById("maTemplate");
-        let li = template.content.cloneNode(true); // Kopiere Inhalt des Templates
-        li.getElementById("post_view_line1").textContent = "Autor " + c;
-        c = c + 1;
-
-        //li.getElementById("post_view_line2").textContent = new Date()
-
-        // Alternative zweite Zeile
-        let post = document.getElementById("maText").value;
-        li.getElementById("post_view_line2").textContent = post;
-
-        document.getElementById("maPostList").appendChild(li);
+        document.getElementById("maText").addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            document.getElementById("maSend").click();
+          }
+        });
       });
 
       // Sign In Button
@@ -460,7 +487,7 @@
         });
 
       function showScreen(hash) {
-        if (hash==""){
+        if (hash == "") {
           return;
         }
         let elements = document.querySelectorAll(".screen");
